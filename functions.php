@@ -46,7 +46,8 @@ function insertData($table, $data, $json = true)
         }
         $stmt->execute();
         $count = $stmt->rowCount();
-        return $count;
+        $id = $con->lastInsertId();
+        return [$count, $id];
     } catch (PDOException $e) {
         echo json_encode(array("status" => "failure", "error" => $e->getMessage()));
         return 0; // Return 0 to indicate failure

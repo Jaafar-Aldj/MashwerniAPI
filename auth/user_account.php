@@ -30,11 +30,7 @@ if ($count_acc > 0 && $count_user == 0) {
         "location"            => $location,
         "trip_long_favorite"  => $trip_long_favorite,
     );
-    insertData("user", $data);
-    $stmt = $con->prepare("SELECT * FROM `user` WHERE `account_id` = ?");
-    $stmt->execute(array($account_id));
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    $user_id = $user['ID'];
+    [$count, $user_id] = insertData("user", $data);
     $data1 = array(
         "user_id"    => $user_id,
         "favorite_1" => $favorite_1,

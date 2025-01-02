@@ -8,7 +8,7 @@ $phone       = filterRequest("phone");
 $verifycode  = rand(100000, 999999);
 
 
-$stmt = $con->prepare("SELECT * FROM `account` WHERE `email` = ? AND `phone` = ?");
+$stmt = $con->prepare("SELECT * FROM `account` WHERE `email` = ? OR `phone` = ?");
 $stmt->execute(array($email, $phone));
 $count = $stmt->rowCount();
 
@@ -22,5 +22,5 @@ if ($count > 0) {
         "verifycode"  => $verifycode,
     );
     insertData("account", $data);
-    sendMail($email, "Mashwerni Verify Code", "Your verify code is : $verifycode");
+    sendMail($email, "Mashwerni Verification Code", "Your VerifyCode is : $verifycode");
 }

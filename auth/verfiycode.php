@@ -14,5 +14,5 @@ if ($count > 0) {
     $data = array("approve" => 1);
     updateData("account", $data, "`email` = '$email'");
 } else {
-    printFailure("Verify Code isn't correct");
+    printFailure("VerifyCode isn't correct");
 }
