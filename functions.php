@@ -31,14 +31,11 @@ function getAllData($table, $where = "1=1", $values = null)
 function insertData($table, $data, $json = true)
 {
     global $con;
-    $ins = [];
     foreach ($data as $field => $v)
         $ins[] = ':' . $field;
     $ins = implode(',', $ins);
     $fields = implode(',', array_keys($data));
     $sql = "INSERT INTO `$table` ($fields) VALUES ($ins)";
-    // echo "SQL: $sql\n";
-    // print_r($data);
     try {
         $stmt = $con->prepare($sql);
         foreach ($data as $f => $v) {
@@ -47,6 +44,11 @@ function insertData($table, $data, $json = true)
         $stmt->execute();
         $count = $stmt->rowCount();
         $id = $con->lastInsertId();
+        if ($count > 0) {
+            echo json_encode(array("status" => "success"));
+        } else {
+            echo json_encode(array("status" => "failure", "error" => "email or phone"));
+        }
         return [$count, $id];
     } catch (PDOException $e) {
         echo json_encode(array("status" => "failure", "error" => $e->getMessage()));
@@ -176,9 +178,7 @@ function sendMail($to, $title, $body)
 
         // Send the email
         if ($mail->send()) {
-            echo 'Email sent successfully!';
         }
     } catch (Exception $e) {
-        echo "Error sending email: {$mail->ErrorInfo}";
     }
 }
