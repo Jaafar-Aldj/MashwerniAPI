@@ -151,6 +151,20 @@ function printFailure($message = "Unknown")
     echo json_encode(array("status" => "failure", "message" => $message));
 }
 
+function printSuccess($message = "Unknown")
+{
+    echo json_encode(array("status" => "success", "message" => $message));
+}
+
+function result($count, $message = "Unknown")
+{
+    if ($count > 0) {
+        printSuccess($message);
+    } else {
+        printFailure($message);
+    }
+}
+
 function sendMail($to, $title, $body)
 {
 
