@@ -12,7 +12,7 @@ function filterRequest($requestname)
     return  htmlspecialchars(strip_tags($_POST[$requestname]));
 }
 
-function getAllData($table, $where = "1=1", $values = null)
+function getAllData($table, $where = "1=1", $values = null, $json = true)
 {
     global $con;
     $data = array();
@@ -20,12 +20,20 @@ function getAllData($table, $where = "1=1", $values = null)
     $stmt->execute($values);
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $count  = $stmt->rowCount();
-    if ($count > 0) {
-        echo json_encode(array("status" => "success", "data" => $data));
+    if ($json == true) {
+        if ($count > 0) {
+            echo json_encode(array("status" => "success", "data" => $data));
+        } else {
+            echo json_encode(array("status" => "failure"));
+        }
+        return $count;
     } else {
-        echo json_encode(array("status" => "failure"));
+        if ($count > 0) {
+            return $data;
+        } else {
+            return json_encode(array("status" => "failure"));
+        }
     }
-    return $count;
 }
 function getData($table, $where = "1=1", $values = null)
 {
