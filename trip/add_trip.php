@@ -40,16 +40,18 @@ if ($count > 0) {
         "max_passengers"    => $max_passengers,
         "cost"              => $cost,
     );
-    [$count, $trip_num] = insertData("trip", $data);
-    $data1 = array(
-        "trip_num"   => $trip_num,
-        "location_1" => $location_1,
-        "location_2" => $location_2,
-        "location_3" => $location_3,
-        "location_4" => $location_4,
-        "location_5" => $location_5,
-    );
-    insertData("trip_destination", $data1);
+    [$count1, $trip_num] = insertData("trip", $data);
+    if ($count1 > 0) {
+        $data1 = array(
+            "trip_num"   => $trip_num,
+            "location_1" => $location_1,
+            "location_2" => $location_2,
+            "location_3" => $location_3,
+            "location_4" => $location_4,
+            "location_5" => $location_5,
+        );
+        insertData("trip_destination", $data1);
+    }
 } elseif ($count == 0) {
     printFailure("No like manager");
 }
