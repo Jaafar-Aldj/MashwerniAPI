@@ -2,12 +2,11 @@
 
 include "../connect.php";
 
-$email       = filterRequest("email");
-$password    = sha1($_POST["password"]);
+$accountID       = filterRequest("account_id");
 
 $alldata = array();
 
-$account = getData("account", "`email` = ? AND `password` = ?", array($email, $password), false);
+$account = getData("account", "`ID` = ?", array($accountID), false);
 if ($account == 0) {
     $alldata['status'] = 'failure';
 } else {
@@ -16,9 +15,6 @@ if ($account == 0) {
     if ($account['is_manager'] == 1) {
         $manager = getData("manager", "account_id = ?", array($account['ID']), false);
         $alldata['manager'] = $manager;
-    } else {
-        $user = getData("user", "account_id = ?", array($account['ID']), false);
-        $alldata['user'] = $user;
     }
 }
 

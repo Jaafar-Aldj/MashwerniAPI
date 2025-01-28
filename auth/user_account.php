@@ -4,18 +4,26 @@ include '../connect.php';
 
 $account_id          = filterRequest('account_id');
 $f_name              = filterRequest('f_name');
-$f_name              = filterRequest('f_name_ar');
+$f_name_ar           = filterRequest('f_name_ar');
 $l_name              = filterRequest('l_name');
-$l_name              = filterRequest('l_name_ar');
+$l_name_ar           = filterRequest('l_name_ar');
 $location            = filterRequest('location');
-$location            = filterRequest('location_ar');
+$location_ar         = filterRequest('location_ar');
 $trip_long_favorite  = filterRequest('trip_long_favorite');
 
 $favorite_1  = filterRequest('favorite_1');
 $favorite_2  = filterRequest('favorite_2');
 $favorite_3  = filterRequest('favorite_3');
 $favorite_4  = filterRequest('favorite_4');
-
+if ($favorite_2 == "0") {
+    $favorite_2 = NULL;
+}
+if ($favorite_3 == "0") {
+    $favorite_3 = NULL;
+}
+if ($favorite_4 == "0") {
+    $favorite_4 = NULL;
+}
 
 $stmt = $con->prepare("SELECT * FROM `account` WHERE `ID` = ?");
 $stmt->execute(array($account_id));
@@ -36,7 +44,7 @@ if ($count_acc > 0 && $count_user == 0) {
         "location_ar"            => $location_ar,
         "trip_long_favorite"     => $trip_long_favorite,
     );
-    [$count1, $user_id] = insertData("user", $data);
+    [$count1, $user_id] = insertData("user", $data, false);
     if ($count1 > 0) {
         $data1 = array(
             "user_id"    => $user_id,

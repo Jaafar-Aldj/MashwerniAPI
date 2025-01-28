@@ -35,7 +35,7 @@ function getAllData($table, $where = "1=1", $values = null, $json = true)
         }
     }
 }
-function getData($table, $where = "1=1", $values = null)
+function getData($table, $where = "1=1", $values = null, $json = true)
 {
     global $con;
     $data = array();
@@ -43,12 +43,20 @@ function getData($table, $where = "1=1", $values = null)
     $stmt->execute($values);
     $data = $stmt->fetch(PDO::FETCH_ASSOC);
     $count  = $stmt->rowCount();
-    if ($count > 0) {
-        echo json_encode(array("status" => "success", "data" => $data));
+    if ($json == true) {
+        if ($count > 0) {
+            echo json_encode(array("status" => "success", "data" => $data));
+        } else {
+            echo json_encode(array("status" => "failure"));
+        }
+        return $count;
     } else {
-        echo json_encode(array("status" => "failure"));
+        if ($count > 0) {
+            return $data;
+        } else {
+            return 0;
+        }
     }
-    return $count;
 }
 
 function insertData($table, $data, $json = true)
@@ -67,10 +75,12 @@ function insertData($table, $data, $json = true)
         $stmt->execute();
         $count = $stmt->rowCount();
         $id = $con->lastInsertId();
-        if ($count > 0) {
-            echo json_encode(array("status" => "success"));
-        } else {
-            echo json_encode(array("status" => "failure", "error" => "email or phone"));
+        if ($json) {
+            if ($count > 0) {
+                echo json_encode(array("status" => "success"));
+            } else {
+                echo json_encode(array("status" => "failure", "error" => "email or phone"));
+            }
         }
         return [$count, $id];
     } catch (PDOException $e) {

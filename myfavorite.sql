@@ -2,7 +2,7 @@ CREATE OR REPLACE VIEW myFavorite AS
 SELECT 
 	favorite.* , 
     trip.* , 
-    account.ID,
+    user.ID,
     categories.name AS category_name,
     categories.name_ar AS category_name_ar,
     manager.company_name AS company_name,
@@ -18,7 +18,7 @@ SELECT
     trip_destination.location_5 AS destination_5
 FROM favorite 
 INNER JOIN trip ON favorite.favorite_trip_num = trip.trip_num
-INNER JOIN account ON favorite.favorite_user_id = account.ID
+INNER JOIN user ON favorite.favorite_user_id = user.ID
 INNER JOIN `categories` ON categories.category_id = trip.category_id
 INNER JOIN `manager` ON manager.ID = trip.manager_id
 INNER JOIN `trip_destination` ON trip_destination.trip_num = trip.trip_num

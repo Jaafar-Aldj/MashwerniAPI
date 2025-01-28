@@ -21,6 +21,7 @@ if ($count > 0) {
         "phone"       => $phone,
         "verifycode"  => $verifycode,
     );
-    insertData("account", $data);
+    insertData("account", $data, false);
     sendMail($email, "Mashwerni Verification Code", "Your VerifyCode is : $verifycode");
+    getData("account", "`email` = ? AND `password` = ?", array($email, $password));
 }
