@@ -4,6 +4,7 @@ SELECT
     categories.name AS category_name,
     categories.name_ar AS category_name_ar,
     manager.company_name AS company_name,
+    manager.company_name_ar AS company_name_ar,
     trip_images.img_1 AS image_1,
     trip_images.img_2 AS image_2,
     trip_images.img_3 AS image_3,
@@ -13,7 +14,12 @@ SELECT
     trip_destination.location_2 AS destination_2,
     trip_destination.location_3 AS destination_3,
     trip_destination.location_4 AS destination_4,
-    trip_destination.location_5 AS destination_5
+    trip_destination.location_5 AS destination_5,
+    trip_destination.location_1_ar AS destination_1_ar,
+    trip_destination.location_2_ar AS destination_2_ar,
+    trip_destination.location_3_ar AS destination_3_ar,
+    trip_destination.location_4_ar AS destination_4_ar,
+    trip_destination.location_5_ar AS destination_5_ar
 FROM `trip`
 INNER JOIN `categories` ON categories.category_id = trip.category_id
 INNER JOIN `manager` ON manager.ID = trip.manager_id

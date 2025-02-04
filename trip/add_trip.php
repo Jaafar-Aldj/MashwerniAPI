@@ -16,16 +16,16 @@ $max_passengers     = filterRequest('max_passengers');
 $cost               = filterRequest('cost');
 
 // destination
-$location_1     = filterRequest('location_1');
-$location_2     = filterRequest('location_2');
-$location_3     = filterRequest('location_3');
-$location_4     = filterRequest('location_4');
-$location_5     = filterRequest('location_5');
-$location_1_ar  = filterRequest('location_1_ar');
-$location_2_ar  = filterRequest('location_2_ar');
-$location_3_ar  = filterRequest('location_3_ar');
-$location_4_ar  = filterRequest('location_4_ar');
-$location_5_ar  = filterRequest('location_5_ar');
+$location_1     = filterRequest('location_1') ?? "";
+$location_2     = filterRequest('location_2') ?? "";
+$location_3     = filterRequest('location_3') ?? "";
+$location_4     = filterRequest('location_4') ?? "";
+$location_5     = filterRequest('location_5') ?? "";
+$location_1_ar  = filterRequest('location_1_ar') ?? "";
+$location_2_ar  = filterRequest('location_2_ar') ?? "";
+$location_3_ar  = filterRequest('location_3_ar') ?? "";
+$location_4_ar  = filterRequest('location_4_ar') ?? "";
+$location_5_ar  = filterRequest('location_5_ar') ?? "";
 
 // images
 // TODO : img_1
@@ -67,6 +67,8 @@ if ($count > 0) {
             "location_5_ar" => $location_5_ar,
         );
         insertData("trip_destination", $data1);
+    } else {
+        printFailure("destination has not added");
     }
 } elseif ($count == 0) {
     printFailure("No like manager");
