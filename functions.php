@@ -31,7 +31,7 @@ function getAllData($table, $where = "1=1", $values = null, $json = true)
         if ($count > 0) {
             return $data;
         } else {
-            return json_encode(array("status" => "failure"));
+            return null;
         }
     }
 }
@@ -54,7 +54,7 @@ function getData($table, $where = "1=1", $values = null, $json = true)
         if ($count > 0) {
             return $data;
         } else {
-            return 0;
+            return null;
         }
     }
 }

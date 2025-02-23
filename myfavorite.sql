@@ -1,7 +1,9 @@
-CREATE OR REPLACE VIEW myFavorite AS
+CREATE OR REPLACE VIEW myfavorite AS
 SELECT 
 	favorite.* , 
     trip.* , 
+    DATEDIFF(trip.start_date, CURRENT_DATE()) AS days_left,
+    (trip.max_passengers - COALESCE(sub_booking.count, 0)) AS seats_left,
     user.ID,
     categories.name AS category_name,
     categories.name_ar AS category_name_ar,
@@ -29,3 +31,8 @@ INNER JOIN `categories` ON categories.category_id = trip.category_id
 INNER JOIN `manager` ON manager.ID = trip.manager_id
 INNER JOIN `trip_destination` ON trip_destination.trip_num = trip.trip_num
 INNER JOIN `trip_images` ON trip_images.trip_num = trip.trip_num
+LEFT JOIN (
+    SELECT booking_trip_num, COUNT(booking_id) AS count 
+    FROM `booking`
+    GROUP BY booking_trip_num
+) AS sub_booking ON sub_booking.booking_trip_num = trip.trip_num;
