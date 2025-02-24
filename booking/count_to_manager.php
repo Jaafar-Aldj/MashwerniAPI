@@ -9,4 +9,4 @@ $stmt->execute();
 
 $data = $stmt->fetchColumn();
 
-echo json_encode(array("status => success", "data" => $data));
+echo json_encode(array("status" => "success", "data" => $data));
