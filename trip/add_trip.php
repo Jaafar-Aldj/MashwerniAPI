@@ -66,7 +66,8 @@ if ($count > 0) {
             "location_4_ar" => $location_4_ar,
             "location_5_ar" => $location_5_ar,
         );
-        insertData("trip_destination", $data1);
+        insertData("trip_destination", $data1, false);
+        echo json_encode(array("status" => "success", "trip_num" => $trip_num));
     } else {
         printFailure("destination has not added");
     }
