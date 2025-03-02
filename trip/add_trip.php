@@ -28,7 +28,11 @@ $location_4_ar  = filterRequest('location_4_ar') ?? "";
 $location_5_ar  = filterRequest('location_5_ar') ?? "";
 
 // images
-// TODO : img_1
+$img_1 = filterRequest('image_1') ?? "";
+$img_2 = filterRequest('image_2') ?? "";
+$img_3 = filterRequest('image_3') ?? "";
+$img_4 = filterRequest('image_4') ?? "";
+$img_5 = filterRequest('image_5') ?? "";
 
 
 
@@ -67,6 +71,15 @@ if ($count > 0) {
             "location_5_ar" => $location_5_ar,
         );
         insertData("trip_destination", $data1, false);
+        $data2 = array(
+            "trip_num" => $trip_num,
+            "img_1"    => $img_1,
+            "img_2"    => $img_2,
+            "img_3"    => $img_3,
+            "img_4"    => $img_4,
+            "img_5"    => $img_5,
+        );
+        insertData("trip_images", $data2, false);
         echo json_encode(array("status" => "success", "trip_num" => $trip_num));
     } else {
         printFailure("destination has not added");

@@ -274,3 +274,34 @@ function sendGCM($title, $message, $topic, $pageid, $pagename)
     return $result;
     curl_close($ch);
 }
+
+
+
+function cosineSimilarity($vectorA, $vectorB)
+{
+    $dotProduct = 0.0;
+    $normA = 0.0;
+    $normB = 0.0;
+
+    for ($i = 0; $i < count($vectorA); $i++) {
+        $dotProduct += $vectorA[$i] * $vectorB[$i];
+        $normA += pow($vectorA[$i], 2);
+        $normB += pow($vectorB[$i], 2);
+    }
+
+    if ($normA == 0 || $normB == 0) {
+        return 0;
+    }
+
+    return $dotProduct / (sqrt($normA) * sqrt($normB));
+}
+
+
+function parseLocation($locationString)
+{
+    $parts = explode(",", $locationString);
+    if (count($parts) == 2) {
+        return [floatval($parts[0]), floatval($parts[1])];
+    }
+    return [0.0, 0.0];
+}
