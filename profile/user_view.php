@@ -13,7 +13,7 @@ WHERE user.ID = :userID");
 $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
 $stmt->execute();
 $count = $stmt->rowCount();
-$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$data = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($count > 0) {
     echo json_encode(array("status" => "success", "data" => $data));

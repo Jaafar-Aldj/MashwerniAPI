@@ -44,6 +44,7 @@ $alldata['suggested_trips'] = $suggestedTrips;
 
 $tripsFrom = getAllData('itemview', "start_date > ? AND (start_location = ? OR start_location_ar = ?)", array($current_time, $user_location_str, $user_location_ar_str), false);
 $alldata['trips_from'] = $tripsFrom;
-
+$alldata['location'] = $user_location_str;
+$alldata['location_ar'] = $user_location_ar_str;
 
 echo json_encode($alldata);
